@@ -45,6 +45,7 @@ const save = async () => {
     startingCellType.value = '';
     targetCellType.value = '';
     cellFile.value = null;
+    selectedFileName.value = '';
 
     message.value = 'Files uploaded successfully!';
 
@@ -70,9 +71,11 @@ const uploadToS3 = async (file) => {
   });
 
 
+  const uniqueFileName = `${Date.now()}_${file.name}`;
+
   const params = {
     Bucket: 'ronakfileupload',
-    Key: file.name,
+    Key: uniqueFileName,
     Body: file,
     ACL: "public-read"
   };
@@ -84,7 +87,6 @@ const uploadToS3 = async (file) => {
 
   uploadPromise.on('httpUploadProgress', function (progress) {
     uploadProgress.value = (progress.loaded / progress.total) * 100;
-
   });
 
   try {
