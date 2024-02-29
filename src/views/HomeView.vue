@@ -1,8 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-import { BlobServiceClient } from '@azure/storage-blob';
-
-import { AWS } from "aws-sdk";
 import { Upload } from "@aws-sdk/lib-storage";
 import { S3Client } from "@aws-sdk/client-s3";
 
@@ -61,8 +58,8 @@ const save = async () => {
 
 
 const uploadToS3 = async (file) => {
-  const accessKeyId = import.meta.env.VITE_AWS_ACCESS_KEY_ID;
-  const secret = import.meta.env.VITE_AWS_SECRET_ACCESS_KEY;
+  const accessKeyId = 'AKIA47CRV2GAKBFDWMKS'
+  const secret = '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';
 
   const s3 = new S3Client({
     credentials: {
