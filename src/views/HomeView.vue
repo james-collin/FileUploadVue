@@ -59,8 +59,8 @@ const save = async () => {
 
 
 const uploadToS3 = async (file) => {
-  const accessKeyId = 'AKIA47CRV2GAKBFDWMKS'
-  const secret = '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';
+  const accessKeyId = import.meta.env.AWS_ACCESS_KEY_ID;
+  const secret = import.meta.env.AWS_SECRET_ACCESS_KEY;
 
   const s3 = new S3Client({
     credentials: {
