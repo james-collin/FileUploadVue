@@ -59,15 +59,15 @@ const save = async () => {
 
 
 const uploadToS3 = async (file) => {
-  const accessKeyId = import.meta.env.AWS_ACCESS_KEY_ID;
-  const secret = import.meta.env.AWS_SECRET_ACCESS_KEY;
+  const accessKeyId = import.meta.env.VITE_AWS_ACCESS_KEY_ID;
+  const secret = import.meta.env.VITE_AWS_SECRET_ACCESS_KEY;
 
   const s3 = new S3Client({
     credentials: {
       accessKeyId: accessKeyId,
       secretAccessKey: secret
     },
-    region:"us-east-1"
+    region: "us-east-1"
   });
 
 
@@ -81,9 +81,9 @@ const uploadToS3 = async (file) => {
   };
 
   const uploadPromise = new Upload({
-      client: s3,
-      params: params,
-    });
+    client: s3,
+    params: params,
+  });
 
   uploadPromise.on('httpUploadProgress', function (progress) {
     uploadProgress.value = (progress.loaded / progress.total) * 100;
@@ -93,10 +93,8 @@ const uploadToS3 = async (file) => {
     const data = await uploadPromise.done();
     console.log('Upload completed. Location:', data.Location);
   } catch (err) {
-    console.error(':', err);
-  }
-  finally{
-    isLoading.value = false;
+    console.error('Error:', err);
+    throw err;
   }
 };
 
